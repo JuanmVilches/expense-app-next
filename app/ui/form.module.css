@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100dvh - 72px);
+  background-color: black;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: 1px solid black;
+  background-color: #27272a;
+  padding: 4px;
+  border-radius: 8px;
+  margin-top: 4px;
+}
