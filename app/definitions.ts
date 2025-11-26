@@ -5,9 +5,9 @@ export const navLinks = [
 ];
 
 export interface Expense {
+  descripcion: string;
+  monto: number;
+  categoria: string;
+  fecha: string;
   id: string;
-  amount: number;
-  category: string;
-  description: string;
-  date: string;
 }
