@@ -11,8 +11,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Navigation />
         <ExpenseProvider>
-          <Navigation />
           {children}
         </ExpenseProvider>
       </body>

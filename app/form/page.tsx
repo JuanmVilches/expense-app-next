@@ -28,7 +28,7 @@ export default function Form() {
         <form
           action=""
           onSubmit={onSubmit}
-          className="w-96 mx-auto! border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-4"
+          className="w-6/12 border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-4"
         >
           <div className={formStyles.inputGroup}>
             <label htmlFor="descripcion">Descripción</label>

@@ -10,12 +10,20 @@ interface ExpenseContextType {
 const ExpenseContext = createContext<ExpenseContextType | undefined>(undefined);
 
 export function ExpenseProvider({ children }: { children: ReactNode }) {
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  
-  useEffect(() => {
-    const stored = localStorage.getItem("expenses");
-    if (stored) setExpenses(JSON.parse(stored));
-  }, []);
+  const [expenses, setExpenses] = useState<Expense[]>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("expenses");
+      if (stored) {
+        try {
+          return JSON.parse(stored) as Expense[];
+        } catch (error) {
+          console.error("Error parsing expenses from localStorage:", error);
+          return [];
+        }
+      }
+    }
+    return [];
+  });
   
 
   useEffect(() => {
@@ -36,7 +44,7 @@ export function ExpenseProvider({ children }: { children: ReactNode }) {
 
 
   return (
-    <ExpenseContext.Provider
+    <ExpenseContext
       value={{
         expenses,
         addExpense,
@@ -44,14 +52,14 @@ export function ExpenseProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </ExpenseContext.Provider>
+    </ExpenseContext>
   );
 }
 
 export function useExpenses() {
   const context = useContext(ExpenseContext)
   if(context === undefined) {
-    throw new Error("error")
+    throw new Error("useExpenses must be used within an ExpenseProvider")
   }
   return context
 }
