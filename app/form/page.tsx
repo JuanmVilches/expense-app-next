@@ -1,25 +1,30 @@
 "use client";
 import formStyles from "@/app/ui/form.module.css";
 import { useForm } from "react-hook-form";
-import {useExpenses} from "@/app/context/ExpenseContext"
+import { useExpenses } from "@/app/context/ExpenseContext";
 
 interface FormValues {
   descripcion: string;
   monto: number;
   categoria: string;
   fecha: string;
-  id: string
+  id: string;
 }
 
 export default function Form() {
-  const {addExpense} = useExpenses() 
-  const {register, reset, handleSubmit, formState:{errors}} = useForm<FormValues>()
+  const { addExpense } = useExpenses();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
-    addExpense(data)
-    reset()
-  })
+    console.log(data);
+    addExpense(data);
+    reset();
+  });
 
   return (
     <>
@@ -32,55 +37,88 @@ export default function Form() {
         >
           <div className={formStyles.inputGroup}>
             <label htmlFor="descripcion">Descripción</label>
-            <input type="text" id="descripcion" className={formStyles.input}
-            {...register("descripcion", {
-              required: {
-                value: true,
-                message: "La descripción es requerida"
-              }
-            })} />
-            {errors.descripcion && <span className={formStyles.error}>{errors.descripcion.message}</span>}
+            <input
+              type="text"
+              id="descripcion"
+              className={formStyles.input}
+              {...register("descripcion", {
+                required: {
+                  value: true,
+                  message: "La descripción es requerida",
+                },
+              })}
+            />
+            {errors.descripcion && (
+              <span className={formStyles.error}>
+                {errors.descripcion.message}
+              </span>
+            )}
           </div>
           <div className={formStyles.inputGroup}>
             <label htmlFor="monto">Monto</label>
-            <input type="number" id="monto" className={formStyles.input} {...register("monto", {
-              required: {
-                value: true,
-                message: "El monto es requerido"
-              }
-            })} />
-            {errors.monto && <span className={formStyles.error}>{errors.monto.message}</span>}
+            <input
+              type="number"
+              id="monto"
+              className={formStyles.input}
+              {...register("monto", {
+                required: {
+                  value: true,
+                  message: "El monto es requerido",
+                },
+              })}
+            />
+            {errors.monto && (
+              <span className={formStyles.error}>{errors.monto.message}</span>
+            )}
           </div>
-          <div className={formStyles.inputGroup}> 
+          <div className={formStyles.inputGroup}>
             <label htmlFor="categoria">Categoria</label>
-            <select id="categoria" className={formStyles.input}
-            {...register("categoria", {
-              required: {
-                value: true,
-                message: "La categoria es requerida"
-              }
-            })}>
-            <option value=""></option>
-            <option value="Supermercado">Supermercado</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Regalos">Regalos</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Tarjeta">Tarjeta</option>
-            <option value="Otros">Otros</option>
+            <select
+              id="categoria"
+              className={formStyles.input}
+              {...register("categoria", {
+                required: {
+                  value: true,
+                  message: "La categoria es requerida",
+                },
+              })}
+            >
+              <option value=""></option>
+              <option value="Supermercado">Supermercado</option>
+              <option value="Ropa">Ropa</option>
+              <option value="Regalos">Regalos</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Tarjeta">Tarjeta</option>
+              <option value="Otros">Otros</option>
             </select>
-            {errors.categoria && <span className={formStyles.error}>{errors.categoria.message}</span>}
+            {errors.categoria && (
+              <span className={formStyles.error}>
+                {errors.categoria.message}
+              </span>
+            )}
           </div>
           <div className={formStyles.inputGroup}>
             <label htmlFor="">Fecha</label>
-            <input type="date" className={formStyles.input} {...register("fecha", {
-              required: {
-                value: true,
-                message: "La fecha es requerida"
-              }
-            })}/>
-            {errors.fecha && <span className={formStyles.error}>{errors.fecha.message}</span>}
+            <input
+              type="date"
+              className={formStyles.input}
+              {...register("fecha", {
+                required: {
+                  value: true,
+                  message: "La fecha es requerida",
+                },
+              })}
+            />
+            {errors.fecha && (
+              <span className={formStyles.error}>{errors.fecha.message}</span>
+            )}
           </div>
-          <button type="submit" className="bg-blue-500 p-2! rounded-xl mt-2! hover:bg-blue-800 transition duration-300 cursor-pointer">Agregar gasto</button>
+          <button
+            type="submit"
+            className="bg-blue-600 p-2! rounded-xl mt-2! hover:bg-blue-500 transition duration-300 cursor-pointer"
+          >
+            Agregar gasto
+          </button>
         </form>
       </div>
     </>
