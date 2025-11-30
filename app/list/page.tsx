@@ -6,7 +6,7 @@ export default function List() {
   const { expenses, deleteExpense } = useExpenses();
   return (
     <>
-      <main className="bg-black p-6! min-h-dvh">
+      <main className="bg-black p-6! flex-1">
         <h2 className="text-white text-4xl text-center pt-7! font-bold">
           Lista de gastos
         </h2>

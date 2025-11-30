@@ -1,12 +1,10 @@
 import RegisterForm from "../app/components/RegisterForm";
 export default async function Home() {
   return (
-    <div
-      className="bg-black min-h-dvh flex
-    items-center "
+    <div className="bg-black flex items-center flex-1"
     >
       <div className="w-1/2">
-        <h2 className="text-white text-center">
+        <h2 className="text-white text-center text-4xl">
           Bievenido/a a la mejor aplicación de gastos web
         </h2>
         <p className="text-white text-center">

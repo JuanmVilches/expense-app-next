@@ -35,11 +35,12 @@ export default function RegisterForm() {
         <form
           action=""
           onSubmit={onSubmit}
-          className="w-full lg:w-6/12 border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-4"
+          className="w-full lg:w-6/12 border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-1"
         >
           <div className={formStyles.inputGroup}>
-            <label htmlFor="name">Nombre</label>
+            <label htmlFor="name"className="p-1.5!">Nombre</label>
             <input
+            placeholder="John"
               type="text"
               id="name"
               className={formStyles.input}
@@ -56,8 +57,9 @@ export default function RegisterForm() {
             )}
           </div>
           <div className={formStyles.inputGroup}>
-            <label htmlFor="lastname">Apellido</label>
+            <label htmlFor="lastname"className="p-1.5!">Apellido</label>
             <input
+            placeholder="Doe"
               className={formStyles.input}
               type="text"
               id="lastname"
@@ -76,8 +78,9 @@ export default function RegisterForm() {
             )}
           </div>
           <div className={formStyles.inputGroup}>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email"className="p-1.5!">Email</label>
             <input
+            placeholder="johndoe@gmail.com"
               className={formStyles.input}
               id="email"
               {...register("email", {
@@ -92,8 +95,9 @@ export default function RegisterForm() {
             )}
           </div>
           <div className={formStyles.inputGroup}>
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="password"className="p-1.5!">Contraseña</label>
             <input
+            placeholder="**************"
               type="password"
               id="password"
               className={formStyles.input}
@@ -115,8 +119,9 @@ export default function RegisterForm() {
             )}
           </div>
           <div className={formStyles.inputGroup}>
-            <label htmlFor="repeatpassword">Repetir Contraseña</label>
+            <label htmlFor="repeatpassword" className="p-1.5!">Repetir Contraseña</label>
             <input
+            placeholder="**************"
               type="password"
               id="repeatpassword"
               className={formStyles.input}
@@ -144,7 +149,7 @@ export default function RegisterForm() {
           </button>
           <span className="text-white text-center">
             Si ya tienes una cuenta,{" "}
-            <Link className="text-blue-600" href={""}>
+            <Link className="text-blue-600" href={"/login"}>
               Iniciar Sesión.
             </Link>
           </span>
