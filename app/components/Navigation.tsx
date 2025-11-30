@@ -2,6 +2,7 @@
 import { navLinks } from "@/app/definitions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SignOutButton from "./SignOutButton";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -27,6 +28,7 @@ export default function Navigation() {
               </Link>
             );
           })}
+        <SignOutButton/>
         </ul>
       </nav>
     </header>

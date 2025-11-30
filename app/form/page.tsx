@@ -29,11 +29,14 @@ export default function Form() {
   return (
     <>
       <div className={formStyles.container}>
-        <h2 className="text-white text-3xl mb-6! font-bold">Agregar Gasto</h2>
+        <h2 className="text-white text-3xl font-bold">Agregar Gasto</h2>
+        <p className="text-[#B3B3B3] text-center text-s mt-2!">
+          Agrega tus gastos y visualizalos en la lista
+        </p>
         <form
           action=""
           onSubmit={onSubmit}
-          className="w-6/12 border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-4"
+          className="w-6/12 border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-4 mt-8!"
         >
           <div className={formStyles.inputGroup}>
             <label htmlFor="descripcion">Descripción</label>

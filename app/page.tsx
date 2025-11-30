@@ -1,5 +1,12 @@
-import RegisterForm from "../app/components/RegisterForm";
+import RegisterForm from "@/app/components/RegisterForm";
+// import { auth } from "@/lib/auth";
+// import { redirect } from "next/navigation";
+
+
 export default async function Home() {
+  // const session = await auth()
+  // if(session) redirect("/")
+
   return (
     <div className="bg-black flex items-center flex-1"
     >
@@ -13,6 +20,7 @@ export default async function Home() {
         </p>
         <p className="text-white text-center">
           Registrese para comenzar a utlizarla.
+          
         </p>
       </div>
       <RegisterForm />
