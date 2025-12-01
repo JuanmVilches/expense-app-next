@@ -1,6 +1,6 @@
 import formStyles from "@/app/ui/form.module.css";
 import { signIn } from "@/lib/auth";
-export default function Login() {
+export default async function Login() {
 
     return <>
     <div className="flex flex-1 bg-black items-center justify-center">
