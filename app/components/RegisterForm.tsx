@@ -17,20 +17,20 @@ interface RegisterValues {
 export default function RegisterForm() {
   const {
     register,
-    reset,
+    // reset,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterValues>();
 
   const onSubmit = handleSubmit(async(data) => {
     try {
-    console.log(data);
+    // console.log(data);
     const res = await axios.post('/api/auth/register',data)
     console.log(res)
     } catch (error) {
       console.log("Este es el error: ",error)
     }
-    reset();
+    // reset();
   });
 
   return (
@@ -63,7 +63,7 @@ export default function RegisterForm() {
               <span className={formStyles.error}>{errors.name.message}</span>
             )}
           </div>
-          <div className={formStyles.inputGroup}>
+          {/* <div className={formStyles.inputGroup}>
             <label htmlFor="lastname"className="p-1.5!">Apellido</label>
             <input
             placeholder="Doe"
@@ -83,7 +83,7 @@ export default function RegisterForm() {
                 {errors.lastname.message}
               </span>
             )}
-          </div>
+          </div> */}
           <div className={formStyles.inputGroup}>
             <label htmlFor="email"className="p-1.5!">Email</label>
             <input
@@ -125,7 +125,7 @@ export default function RegisterForm() {
               </span>
             )}
           </div>
-          <div className={formStyles.inputGroup}>
+          {/* <div className={formStyles.inputGroup}>
             <label htmlFor="repeatpassword" className="p-1.5!">Repetir Contraseña</label>
             <input
             placeholder="**************"
@@ -147,7 +147,7 @@ export default function RegisterForm() {
                 {errors.repeatpassword.message}
               </span>
             )}
-          </div>
+          </div> */}
           <button
             type="submit"
             className="bg-blue-600 p-2! rounded-xl mt-2! hover:bg-blue-500 transition duration-300 cursor-pointer"
