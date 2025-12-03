@@ -2,6 +2,7 @@
 import formStyles from "@/app/ui/form.module.css";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 interface RegisterValues {
   name: string;
@@ -21,8 +22,14 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm<RegisterValues>();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async(data) => {
+    try {
     console.log(data);
+    const res = await axios.post('/api/auth/register',data)
+    console.log(res)
+    } catch (error) {
+      console.log("Este es el error: ",error)
+    }
     reset();
   });
 
