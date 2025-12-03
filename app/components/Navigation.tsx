@@ -6,14 +6,12 @@ import SignOutButton from "./SignOutButton";
 
 export default function Navigation() {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <header>
       <nav className="bg-[#27272a] text-white p-4! h-full">
         <ul className="flex gap-8 justify-center h-full">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
-            console.log(isActive);
             return (
               <Link
                 key={link.href}
@@ -28,7 +26,7 @@ export default function Navigation() {
               </Link>
             );
           })}
-        <SignOutButton/>
+          <SignOutButton />
         </ul>
       </nav>
     </header>
