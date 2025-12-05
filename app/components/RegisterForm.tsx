@@ -17,37 +17,38 @@ interface RegisterValues {
 export default function RegisterForm() {
   const {
     register,
-    // reset,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterValues>();
 
-  const onSubmit = handleSubmit(async(data) => {
+  const onSubmit = handleSubmit(async (data) => {
     try {
-    // console.log(data);
-    const res = await axios.post('/api/auth/register',data)
-    console.log(res)
+      const res = await axios.post("/api/auth/register", data);
+      reset();
+      return res;
     } catch (error) {
-      console.log("Este es el error: ",error)
+      console.log("Este es el error: ", error);
     }
-    // reset();
   });
 
   return (
     <>
       <div className={`${formStyles.container} w-1/2 p-4!`}>
-        <h2 className="text-white w-full text-center">
+        <h2 className="text-white text-3xl font-bold">
           Formulario de registro
         </h2>
+
         <form
-          action=""
           onSubmit={onSubmit}
-          className="w-full lg:w-6/12 border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-1"
+          className="w-full lg:w-6/12 border p-8! bg-zinc-900 rounded-4xl border-amber-200 flex flex-col justify-around text-white gap-1 mt-2!"
         >
           <div className={formStyles.inputGroup}>
-            <label htmlFor="name"className="p-1.5!">Nombre</label>
+            <label htmlFor="name" className="p-1.5!">
+              Nombre
+            </label>
             <input
-            placeholder="John"
+              placeholder="John"
               type="text"
               id="name"
               className={formStyles.input}
@@ -85,9 +86,11 @@ export default function RegisterForm() {
             )}
           </div> */}
           <div className={formStyles.inputGroup}>
-            <label htmlFor="email"className="p-1.5!">Email</label>
+            <label htmlFor="email" className="p-1.5!">
+              Email
+            </label>
             <input
-            placeholder="johndoe@gmail.com"
+              placeholder="johndoe@gmail.com"
               className={formStyles.input}
               id="email"
               {...register("email", {
@@ -102,9 +105,11 @@ export default function RegisterForm() {
             )}
           </div>
           <div className={formStyles.inputGroup}>
-            <label htmlFor="password"className="p-1.5!">Contraseña</label>
+            <label htmlFor="password" className="p-1.5!">
+              Contraseña
+            </label>
             <input
-            placeholder="**************"
+              placeholder="**************"
               type="password"
               id="password"
               className={formStyles.input}
