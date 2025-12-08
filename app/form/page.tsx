@@ -4,6 +4,7 @@ import FormClient from "./FormClient";
 
 export default async function FormPage() {
   const session = await auth();
+  console.log("sesion: ", session);
   if (!session) {
     redirect("/login");
   }
