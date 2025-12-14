@@ -2,6 +2,9 @@
 import formStyles from "@/app/ui/form.module.css";
 import { useForm } from "react-hook-form";
 import { useExpenses } from "@/app/context/ExpenseContext";
+import { useAuth } from "../hooks";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 interface FormValues {
   descripcion: string;
@@ -12,6 +15,7 @@ interface FormValues {
 }
 
 export default function FormClient() {
+  const { user } = useAuth();
   const { addExpense } = useExpenses();
   const {
     register,
@@ -20,10 +24,33 @@ export default function FormClient() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    addExpense(data);
-    reset();
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      if (!user) {
+        console.log("Usuario no autenticado");
+        return;
+      }
+
+      const payload = {
+        ...data,
+        monto: Number(data.monto),
+        userId: Number(user.id),
+        fecha: new Date(),
+      };
+
+      const res = await axios.post("/api/expenses", payload);
+
+      addExpense(res.data);
+      Swal.fire({
+        icon: "success",
+        text: "Agregado con éxito!",
+        showConfirmButton: false,
+        timer: 1600,
+      });
+      reset();
+    } catch (error) {
+      console.log("Error al crear gasto", error);
+    }
   });
 
   return (

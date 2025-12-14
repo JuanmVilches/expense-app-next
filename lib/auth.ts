@@ -2,9 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import type { Session } from "next-auth";
 
-type session = Session
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -37,7 +35,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   secret: process.env.AUTH_SECRET,
-  session: { strategy: 'jwt' },
+  session: { strategy: 'jwt', maxAge: 86400},
   callbacks: {
     async session({ session , token }) {
       if (token && session.user) {

@@ -3,6 +3,8 @@ import formStyles from "@/app/ui/form.module.css";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 interface RegisterValues {
   name: string;
@@ -15,6 +17,8 @@ interface RegisterValues {
 }
 
 export default function RegisterForm() {
+  const router = useRouter();
+
   const {
     register,
     reset,
@@ -25,8 +29,17 @@ export default function RegisterForm() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const res = await axios.post("/api/auth/register", data);
+      console.log(res.data);
+      if (res.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Usuario creado con éxito!",
+          showConfirmButton: false,
+          timer: 1600,
+        });
+        router.push("/login");
+      }
       reset();
-      return res;
     } catch (error) {
       console.log("Este es el error: ", error);
     }
@@ -64,27 +77,6 @@ export default function RegisterForm() {
               <span className={formStyles.error}>{errors.name.message}</span>
             )}
           </div>
-          {/* <div className={formStyles.inputGroup}>
-            <label htmlFor="lastname"className="p-1.5!">Apellido</label>
-            <input
-            placeholder="Doe"
-              className={formStyles.input}
-              type="text"
-              id="lastname"
-              {...register("lastname", {
-                minLength: 3,
-                required: {
-                  value: true,
-                  message: "El apellido es requerido",
-                },
-              })}
-            />
-            {errors.lastname && (
-              <span className={formStyles.error}>
-                {errors.lastname.message}
-              </span>
-            )}
-          </div> */}
           <div className={formStyles.inputGroup}>
             <label htmlFor="email" className="p-1.5!">
               Email
@@ -130,29 +122,6 @@ export default function RegisterForm() {
               </span>
             )}
           </div>
-          {/* <div className={formStyles.inputGroup}>
-            <label htmlFor="repeatpassword" className="p-1.5!">Repetir Contraseña</label>
-            <input
-            placeholder="**************"
-              type="password"
-              id="repeatpassword"
-              className={formStyles.input}
-              {...register("repeatpassword", {
-                required: {
-                  value: true,
-                  message: "Debe repetir la contraseña",
-                },
-                validate: (value, formValues) =>
-                  value === formValues.password ||
-                  "Las contraseñas no coinciden",
-              })}
-            />
-            {errors.repeatpassword && (
-              <span className={formStyles.error}>
-                {errors.repeatpassword.message}
-              </span>
-            )}
-          </div> */}
           <button
             type="submit"
             className="bg-blue-600 p-2! rounded-xl mt-2! hover:bg-blue-500 transition duration-300 cursor-pointer"

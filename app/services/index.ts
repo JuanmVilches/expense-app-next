@@ -1,7 +1,2 @@
-export { getUserByEmail, getUserById, createUser, emailExists } from "./userService";
-export {
-  getAllExpenses,
-  createExpense,
-  deleteExpense,
-  updateExpense,
-} from "./expenseService";
+export { createUser } from "./userService";
+export { createExpense } from "./expenseService";

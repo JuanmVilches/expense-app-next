@@ -4,6 +4,7 @@ import listStyles from "@/app/ui/list.module.css";
 
 export default function ListClient() {
   const { expenses, deleteExpense } = useExpenses();
+  console.log(expenses);
 
   return (
     <>
@@ -22,16 +23,16 @@ export default function ListClient() {
             >
               <div className="flex items-center gap-6 mt-2.5">
                 <div className="col">
-                  <span>{expense.descripcion}</span>
-                  <p>{expense.fecha}</p>
+                  <span>{expense.expense}</span>
+                  <p>{expense.date}</p>
                 </div>
                 <span className="bg-blue-400 p-1! rounded text-white text-sm">
-                  {expense.categoria}
+                  {expense.category}
                 </span>
               </div>
               <div className="flex items-center gap-8">
                 <span className="text-red-400 font-bold text-lg">
-                  ${expense.monto}
+                  ${expense.amount}
                 </span>
                 <button
                   className="cursor-pointer"

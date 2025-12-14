@@ -7,11 +7,3 @@ export const navLinks = [
   { href: "/form", label: "Form", icon: FormOutline },
   { href: "/list", label: "List", icon: ListOutline },
 ];
-
-export interface Expense {
-  descripcion: string;
-  monto: number;
-  categoria: string;
-  fecha: string;
-  id: string;
-}

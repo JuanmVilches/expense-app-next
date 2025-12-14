@@ -1,9 +1,22 @@
+"use client";
 import Logout from "@/lib/icons/LogoOut";
 import { signOut } from "next-auth/react";
+import Swal from "sweetalert2";
 export default function SignOutButton() {
   async function signOutSession() {
-    const cerrarSesion = confirm("Su sesión se cerrar");
-    if (cerrarSesion) await signOut();
+    Swal.fire({
+      icon: "question",
+      title: "Cerrar sesión?",
+      showConfirmButton: true,
+      showCancelButton: true,
+    })
+      .then(async (resultado) => {
+        if (!resultado.isConfirmed) return;
+        await signOut();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   return (
     <button

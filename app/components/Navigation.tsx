@@ -1,10 +1,10 @@
 "use client";
-import { navLinks } from "@/app/definitions";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import SignOutButton from "./SignOutButton";
-import { useSession } from "next-auth/react";
 import Signin from "@/lib/icons/SignIn";
+import SignOutButton from "./SignOutButton";
+import { navLinks } from "@/app/types/definitions";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Navigation() {
   const pathname = usePathname();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import type { UserSession } from "@/app/types";
+import type { UserSession } from "@/app/types/user";
 
 /**
  * Hook para obtener la sesión del usuario autenticado
