@@ -1,7 +1,5 @@
 import type { CreateExpensePayload } from "@/app/types/expense";
 import { prisma } from "@/lib/prisma";
-// Simulado con localStorage (reemplazar con API real si es necesario)
-// En producción, esto sería llamadas a endpoints /api/expenses
 
 export async function createExpense(payload: CreateExpensePayload) {
   const newExpense = await prisma.expenses.create({

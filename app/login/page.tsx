@@ -15,6 +15,15 @@ export default function Login() {
         email: data.email,
         password: data.password,
       });
+      if (res.error) {
+        Swal.fire({
+          icon: "error",
+          title: "Email o contraseña incorrecto.",
+          showConfirmButton: false,
+          timer: 1600,
+        });
+        return res;
+      }
       router.push("/form");
       Swal.fire({
         title: "Inicio de sesión exitoso!",

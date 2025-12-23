@@ -35,7 +35,7 @@ export default function FormClient() {
         ...data,
         monto: Number(data.monto),
         userId: Number(user.id),
-        fecha: new Date(),
+        fecha: new Date(data.fecha),
       };
 
       const res = await axios.post("/api/expenses", payload);
