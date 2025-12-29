@@ -18,6 +18,7 @@ export default function ListClient() {
         </p>
         <div className={listStyles.container}>
           <div></div>
+          <div></div>
           {expenses.map((expense) => (
             <div
               className="flex justify-between p-4! bg-[#333333] text-white rounded-xl border border-zinc-200 hover:bg-[#4D4D4D] transition duration-200"
