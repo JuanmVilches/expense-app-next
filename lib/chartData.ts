@@ -1,18 +1,6 @@
+import { months } from "@/app/utils/months";
 export const lineChartData = {
-  labels: [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ],
+  labels: months.map((month) => month),
   datasets: [
     {
       label: "Expenses",

@@ -21,8 +21,13 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 export default function LineChart() {
   const options = {};
 
-  return <Line options={options} data={lineChartData} />;
+  return (
+    <div className="w-1/2 ">
+      <Line options={options} data={lineChartData} />;
+    </div>
+  );
 }
