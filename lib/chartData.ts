@@ -1,4 +1,5 @@
 import { months } from "@/app/utils/months";
+import { EXPENSE_CATEGORIES } from "@/app/constants/expenses";
 export const lineChartData = {
   labels: months.map((month) => month),
   datasets: [
@@ -11,4 +12,9 @@ export const lineChartData = {
       borderColor: "rgb(999,999,999)",
     },
   ],
+};
+
+export const barChartData = {
+  labels: EXPENSE_CATEGORIES.map((category) => category),
+  datasets: {},
 };

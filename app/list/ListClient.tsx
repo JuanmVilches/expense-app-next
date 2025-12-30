@@ -5,8 +5,8 @@ import listStyles from "@/app/ui/list.module.css";
 
 export default function ListClient() {
   const { expenses, deleteExpense } = useExpenses();
-  console.log(expenses);
 
+  console.log(expenses);
   return (
     <>
       <main className="bg-black p-6! flex-1">

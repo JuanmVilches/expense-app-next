@@ -22,7 +22,7 @@ export async function getUserExpenses(userId: number) {
 }
 
 export async function getExpenseById(id: number, userId: number) {
-  return prisma.expenses.findFirst({
+  return await prisma.expenses.findFirst({
     where: { id, userId },
   });
 }
@@ -38,4 +38,13 @@ export async function deleteExpenseUser(id: number, userId: number) {
   return prisma.expenses.delete({
     where: { id },
   });
+}
+
+export async function expensesByCategory(userId: number) {
+  const res = await prisma.expenses.groupBy({
+    by: "category",
+    where: { userId },
+    _sum: { amount: true },
+  });
+  return res;
 }

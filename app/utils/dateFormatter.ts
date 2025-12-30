@@ -1,5 +1,4 @@
 export function formatDate(dateInput: string | Date): string {
-  console.log(dateInput);
   const date = new Date(dateInput);
 
   if (isNaN(date.getTime())) {

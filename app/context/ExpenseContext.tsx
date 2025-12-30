@@ -4,6 +4,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { Expense } from "@/app/types/expense";
@@ -12,6 +13,7 @@ import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 interface ExpenseContextType {
   expenses: Expense[];
+  totalsByCategory: Record<string, number>;
   addExpense: (expense: Expense) => void;
   deleteExpense: (id: number) => void;
 }
@@ -68,12 +70,20 @@ export function ExpenseProvider({
     });
   };
 
+  const totalsByCategory = useMemo(() => {
+    return expenses.reduce((acc, expense) => {
+      acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
+      return acc;
+    }, {} as Record<string, number>);
+  }, [expenses]);
+
   return (
     <ExpenseContext
       value={{
         expenses,
         addExpense,
         deleteExpense,
+        totalsByCategory,
       }}
     >
       {children}

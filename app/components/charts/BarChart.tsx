@@ -9,7 +9,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-// import { lineChartData } from "@/lib/chartData";
 
 ChartJS.register(
   CategoryScale,
