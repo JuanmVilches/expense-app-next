@@ -3,6 +3,7 @@ export const ROUTES = {
   LOGIN: "/login",
   FORM: "/form",
   LIST: "/list",
+  DASHBOARD: "/dashboard",
   API: {
     AUTH: {
       REGISTER: "/api/auth/register",
@@ -13,4 +14,8 @@ export const ROUTES = {
   },
 } as const;
 
-export const PROTECTED_ROUTES = [ROUTES.FORM, ROUTES.LIST] as const;
+export const PROTECTED_ROUTES = [
+  ROUTES.FORM,
+  ROUTES.LIST,
+  ROUTES.DASHBOARD,
+] as const;

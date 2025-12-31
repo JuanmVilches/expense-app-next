@@ -1,5 +1,7 @@
 "use client";
 import { Line } from "react-chartjs-2";
+import { getLineChartData } from "@/lib/chartData";
+import { useExpenses } from "@/app/context/ExpenseContext";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +12,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { lineChartData } from "@/lib/chartData";
 
 ChartJS.register(
   CategoryScale,
@@ -23,11 +24,13 @@ ChartJS.register(
 );
 
 export default function LineChart() {
+  const { totalsByMonth } = useExpenses();
   const options = {};
-
   return (
-    <div className="w-1/2 ">
-      <Line options={options} data={lineChartData} />;
-    </div>
+    <Line
+      options={options}
+      data={getLineChartData(totalsByMonth)}
+      className="max-w-1/2! bg-white "
+    />
   );
 }

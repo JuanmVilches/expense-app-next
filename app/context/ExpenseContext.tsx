@@ -16,6 +16,7 @@ interface ExpenseContextType {
   totalsByCategory: Record<string, number>;
   addExpense: (expense: Expense) => void;
   deleteExpense: (id: number) => void;
+  totalsByMonth: Record<number, number>;
 }
 
 const ExpenseContext = createContext<ExpenseContextType | undefined>(undefined);
@@ -77,6 +78,14 @@ export function ExpenseProvider({
     }, {} as Record<string, number>);
   }, [expenses]);
 
+  const totalsByMonth = useMemo(() => {
+    return expenses.reduce((acc, expense) => {
+      const month = new Date(expense.date).getMonth(); // 0–11
+      acc[month] = (acc[month] || 0) + expense.amount;
+      return acc;
+    }, {} as Record<number, number>);
+  }, [expenses]);
+
   return (
     <ExpenseContext
       value={{
@@ -84,6 +93,7 @@ export function ExpenseProvider({
         addExpense,
         deleteExpense,
         totalsByCategory,
+        totalsByMonth,
       }}
     >
       {children}

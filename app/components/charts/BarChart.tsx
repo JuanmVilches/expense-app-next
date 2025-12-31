@@ -1,5 +1,6 @@
 "use client";
 import { Bar } from "react-chartjs-2";
+import { getBarChartData } from "@/lib/chartData";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useExpenses } from "@/app/context/ExpenseContext";
 
 ChartJS.register(
   CategoryScale,
@@ -20,6 +22,13 @@ ChartJS.register(
 );
 
 export default function BarChart() {
+  const { totalsByCategory } = useExpenses();
   const options = {};
-  <Bar options={options} data={}></Bar>;
+  return (
+    <Bar
+      options={options}
+      data={getBarChartData(totalsByCategory)}
+      className="max-w-1/2! bg-white "
+    ></Bar>
+  );
 }
