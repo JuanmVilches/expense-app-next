@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation";
 import { ExpenseProvider } from "@/app/context/ExpenseContext";
 import { auth } from "@/lib/auth";
 import { getUserExpenses } from "@/app/services/expenseService";
+import type { Expenses } from "@prisma/client";
 
 export default async function RootLayout({
   children,
@@ -18,7 +19,7 @@ export default async function RootLayout({
     const userId = session?.user?.id ? Number(session.user.id) : undefined;
     if (userId) {
       const userExpenses = await getUserExpenses(userId);
-      initialExpenses = userExpenses.map((r) => ({
+      initialExpenses = userExpenses.map((r: Expenses) => ({
         id: String(r.id),
         expense: r.expense,
         amount: r.amount,
