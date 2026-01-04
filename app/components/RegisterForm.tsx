@@ -8,11 +8,8 @@ import Swal from "sweetalert2";
 
 interface RegisterValues {
   name: string;
-  lastname: string;
   email: string;
   password: string;
-  repeatpassword: string;
-  id: string;
   createdAt: Date;
 }
 
