@@ -106,15 +106,11 @@ Prisma:
 - `AUTH_SECRET` — Secreto para NextAuth
 - (Opcional) `NEXTAUTH_URL` — URL base de la app en producción
 
-No subas tus secretos al repositorio público.
-
 ---
 
 ## ☁️ Despliegue
 
 Se recomienda desplegar en Vercel para una integración directa con Next.js. Configura las variables de entorno (`DATABASE_URL`, `AUTH_SECRET`, `NEXTAUTH_URL`) en el dashboard de tu proveedor.
-
-Nota: SQLite funciona para prototipos y proyectos pequeños; para producción con alta concurrencia, cambia a Postgres o MySQL (actualiza `prisma/schema.prisma` y `DATABASE_URL`).
 
 ---
 
