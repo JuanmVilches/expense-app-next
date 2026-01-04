@@ -118,10 +118,31 @@ Nota: SQLite funciona para prototipos y proyectos pequeños; para producción co
 
 ---
 
-## 🗂 Estructura relevante
+## 🗂 Estructura del proyecto
 
-- `app/` — Rutas, páginas y componentes
-- `app/api/` — Endpoints API (auth, expenses)
-- `lib/` — Configuración (Prisma, auth)
-- `prisma/` — Esquema y migraciones
-- `package.json` — Dependencias y scripts
+A continuación se describen las carpetas y archivos más importantes y con qué propósito sirven:
+
+- `app/` — Código de la aplicación (App Router).
+
+  - `app/page.tsx` — Página de inicio.
+  - `app/layout.tsx` — Layout global (cabezera, pie, provider, etc.).
+  - `app/components/` — Componentes reutilizables (ej. `Navigation.tsx`, `RegisterForm.tsx`, `SessionProvider.tsx`).
+  - Rutas/páginas: `app/dashboard/`, `app/form/`, `app/list/`, `app/login/` — Páginas principales y clientes (Client Components).
+  - `app/api/` — Endpoints API (p. ej. `auth` para NextAuth y `expenses` para el CRUD).
+
+- `lib/` — Configuración y helpers.
+
+  - `lib/auth.ts` — Configuración de NextAuth (providers, callbacks, secret).
+  - `lib/prisma.ts` — Inicialización de Prisma con `@prisma/adapter-better-sqlite3`.
+  - Otros: `lib/chartData.ts`, `lib/icons/` y utilidades compartidas.
+
+- `prisma/` — Esquema y migraciones.
+
+  - `schema.prisma` — Modelos (`User`, `Expenses`).
+  - `migrations/` — Migraciones generadas (versión controlada para cambios en el esquema).
+
+- `app/services/` — Lógica de acceso a datos usada por el frontend (`userService.ts`, `expenseService.ts`).
+- `context/` — Contextos React (por ejemplo `ExpenseContext.tsx`) para estado compartido.
+- `app/hooks/` — Hooks personalizados (`useAuth`, `useFetch`).
+- `app/ui/` — Módulos CSS y estilos (p. ej. `form.module.css`, `list.module.css`).
+- Archivos de configuración principales: `package.json`, `next.config.ts`, `tsconfig.json`, `.eslintrc`.
