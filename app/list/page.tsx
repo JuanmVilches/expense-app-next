@@ -1,5 +1,5 @@
 import ListClient from "./ListClient";
 
-export default function ListPage() {
+export default async function ListPage() {
   return <ListClient />;
 }

@@ -7,6 +7,8 @@ export interface User {
   createdAt: Date;
 }
 
+export type SafeUser = Omit<User, 'password'>
+
 export interface UserSession extends Session {
   user: {
     id: string;

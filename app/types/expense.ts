@@ -1,9 +1,10 @@
 export interface Expense {
-  id: string;
-  descripcion: string;
-  monto: number;
-  categoria: string;
-  fecha: string;
+  id: number;
+  expense: string;
+  amount: number;
+  category: string;
+  date: string;
+  userId?: number;
 }
 
 export interface CreateExpensePayload {
@@ -11,6 +12,7 @@ export interface CreateExpensePayload {
   monto: number;
   categoria: string;
   fecha: string;
+  userId: number;
 }
 
 export type ExpenseCategory =

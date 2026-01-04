@@ -1,10 +1,10 @@
 "use client";
-import { navLinks } from "@/app/definitions";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import SignOutButton from "./SignOutButton";
-import { useSession } from "next-auth/react";
 import Signin from "@/lib/icons/SignIn";
+import SignOutButton from "./SignOutButton";
+import { navLinks } from "@/app/types/definitions";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -24,7 +24,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`h-full hover:bg-gray-500 bg-gray-600 p-2! rounded-md w-20 text-center duration-300 flex items-center justify-center gap-1 ${
+                className={`h-full hover:bg-gray-500 bg-gray-600 p-2! rounded-md w-30 text-center duration-300 flex items-center justify-center gap-1 ${
                   isActive
                     ? "bg-blue-600! hover:bg-blue-500! duration-300 "
                     : ""

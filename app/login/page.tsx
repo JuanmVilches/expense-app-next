@@ -1,5 +1,6 @@
 "use client";
 import formStyles from "@/app/ui/form.module.css";
+import Swal from "sweetalert2";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -14,11 +15,23 @@ export default function Login() {
         email: data.email,
         password: data.password,
       });
-      console.log(res);
       if (res.error) {
-        alert("Error al inciar sesion");
+        Swal.fire({
+          icon: "error",
+          title: "Email o contraseña incorrecto.",
+          showConfirmButton: false,
+          timer: 1600,
+        });
+        return res;
       }
       router.push("/form");
+      Swal.fire({
+        title: "Inicio de sesión exitoso!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1600,
+      });
+      return res;
     } catch (error) {
       console.log(error);
     }

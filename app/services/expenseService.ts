@@ -1,54 +1,50 @@
-import type { Expense, CreateExpensePayload } from "@/app/types";
+import type { CreateExpensePayload } from "@/app/types/expense";
+import { prisma } from "@/lib/prisma";
 
-// Simulado con localStorage (reemplazar con API real si es necesario)
-// En producción, esto sería llamadas a endpoints /api/expenses
-
-/**
- * Obtiene todos los gastos del usuario
- * NOTA: En producción, esto vendría del servidor/BD
- */
-export async function getAllExpenses(userId: string): Promise<Expense[]> {
-  // Placeholder: implementar con API call real
-  return [];
+export async function createExpense(payload: CreateExpensePayload) {
+  const newExpense = await prisma.expenses.create({
+    data: {
+      expense: payload.descripcion,
+      amount: payload.monto,
+      category: payload.categoria,
+      date: payload.fecha,
+      userId: payload.userId,
+    },
+  });
+  return newExpense;
 }
 
-/**
- * Crea un nuevo gasto
- * NOTA: En producción, POST a /api/expenses
- */
-export async function createExpense(
-  userId: string,
-  payload: CreateExpensePayload
-): Promise<Expense> {
-  const expense: Expense = {
-    id: Math.random().toString(36).substr(2, 9),
-    ...payload,
-  };
-  return expense;
+export async function getUserExpenses(userId: number) {
+  return await prisma.expenses.findMany({
+    where: { userId },
+    orderBy: { date: "desc" },
+  });
 }
 
-/**
- * Elimina un gasto
- * NOTA: En producción, DELETE a /api/expenses/:id
- */
-export async function deleteExpense(expenseId: string): Promise<void> {
-  // Placeholder
+export async function getExpenseById(id: number, userId: number) {
+  return await prisma.expenses.findFirst({
+    where: { id, userId },
+  });
 }
 
-/**
- * Actualiza un gasto
- * NOTA: En producción, PATCH a /api/expenses/:id
- */
-export async function updateExpense(
-  expenseId: string,
-  payload: Partial<CreateExpensePayload>
-): Promise<Expense> {
-  // Placeholder
-  return {
-    id: expenseId,
-    descripcion: "",
-    monto: 0,
-    categoria: "Otros",
-    fecha: "",
-  };
+export async function deleteExpenseUser(id: number, userId: number) {
+  const expense = await prisma.expenses.findFirst({
+    where: { id, userId },
+  });
+
+  if (!expense) {
+    throw new Error("No tienes permiso para borrar este gasto.");
+  }
+  return prisma.expenses.delete({
+    where: { id },
+  });
+}
+
+export async function expensesByCategory(userId: number) {
+  const res = await prisma.expenses.groupBy({
+    by: "category",
+    where: { userId },
+    _sum: { amount: true },
+  });
+  return res;
 }
