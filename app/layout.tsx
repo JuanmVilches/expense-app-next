@@ -4,8 +4,7 @@ import Navigation from "./components/Navigation";
 import { ExpenseProvider } from "@/app/context/ExpenseContext";
 import { auth } from "@/lib/auth";
 import { getUserExpenses } from "@/app/services/expenseService";
-import type { Expenses } from "@prisma/client";
-
+import type { ExpenseDb } from "@/app/types/expense";
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -19,7 +18,7 @@ export default async function RootLayout({
     const userId = session?.user?.id ? Number(session.user.id) : undefined;
     if (userId) {
       const userExpenses = await getUserExpenses(userId);
-      initialExpenses = userExpenses.map((r: Expenses) => ({
+      initialExpenses = userExpenses.map((r: ExpenseDb) => ({
         id: String(r.id),
         expense: r.expense,
         amount: r.amount,

@@ -6,7 +6,14 @@ export interface Expense {
   date: string;
   userId?: number;
 }
-
+export interface ExpenseDb {
+  id: number;
+  expense: string;
+  amount: number;
+  category: string;
+  date: Date;
+  userId?: number;
+}
 export interface CreateExpensePayload {
   descripcion: string;
   monto: number;
