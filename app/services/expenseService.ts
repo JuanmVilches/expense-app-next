@@ -1,5 +1,5 @@
 import type { CreateExpensePayload } from "@/app/types/expense";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function createExpense(payload: CreateExpensePayload) {
   const newExpense = await prisma.expenses.create({

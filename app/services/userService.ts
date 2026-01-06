@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import type {RegisterPayload } from "@/app/types/user";
+import prisma from "@/lib/prisma";
+import type { RegisterPayload } from "@/app/types/user";
 import { SafeUser } from "../types/user";
 import bcrypt from "bcryptjs";
 
@@ -23,22 +23,24 @@ import bcrypt from "bcryptjs";
 //   return user;
 // }
 
-//** Crear usuario 
-export async function createUser (payload : RegisterPayload): Promise<SafeUser>{
+//** Crear usuario
+export async function createUser(payload: RegisterPayload): Promise<SafeUser> {
   try {
-    const hashedPassword = await bcrypt.hash(payload.password, 10)
-    const newUser = await prisma.user.create({data: {
-      email: payload.email,
-      name: payload.name,
-      password: hashedPassword
-    }})
+    const hashedPassword = await bcrypt.hash(payload.password, 10);
+    const newUser = await prisma.user.create({
+      data: {
+        email: payload.email,
+        name: payload.name,
+        password: hashedPassword,
+      },
+    });
 
-    const {password, ...safeUser} = newUser
-    void password
-    return safeUser as SafeUser
+    const { password, ...safeUser } = newUser;
+    void password;
+    return safeUser as SafeUser;
   } catch (error) {
-    console.log("Error al crear el usuario", error)
-    throw new Error("Error al crear usuario")
+    console.log("Error al crear el usuario", error);
+    throw new Error("Error al crear usuario");
   }
 }
 
