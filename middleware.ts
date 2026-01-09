@@ -4,6 +4,16 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const secret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
+
+  // Debug: print whether secrets exist and raw cookie header (will appear in Vercel logs)
+  try {
+    console.log("middleware: NEXTAUTH_SECRET present", !!process.env.NEXTAUTH_SECRET, "AUTH_SECRET present", !!process.env.AUTH_SECRET);
+    console.log("middleware: secret length", secret ? secret.length : 0);
+    console.log("middleware: raw cookie header", request.headers.get("cookie"));
+  } catch (err) {
+    console.log("middleware secret/cookie debug error", err);
+  }
+
   const token = await getToken({
     req: request,
     secret,
