@@ -1,6 +1,6 @@
 # Expense App — Next.js
 
-**Aplicación para el control de gastos personales** desarrollada con **Next.js (App Router)**, autenticación con **NextAuth (Credentials)**, persistencia con **Prisma + SQLite**, formularios con **react-hook-form** y visualizaciones con **Chart.js**.
+**Aplicación para el control de gastos personales** desarrollada con **Next.js (App Router)**, autenticación con **NextAuth (Credentials)**, persistencia con **Prisma + PostgreSQL**, formularios con **react-hook-form** y visualizaciones con **Chart.js**.
 
 ---
 

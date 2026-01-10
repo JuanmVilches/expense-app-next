@@ -28,9 +28,14 @@ export async function GET(request: NextRequest) {
       secretLength: secret ? secret.length : 0,
       cookie,
       getTokenRaw: typeof raw === "string" ? raw.slice(0, 200) : raw,
-      getTokenDecoded: decoded
-        ? { sub: decoded.sub, email: decoded.email, name: decoded.name }
-        : null,
+      getTokenDecoded:
+        decoded && typeof decoded === "object"
+          ? {
+              sub: (decoded as any).sub,
+              email: (decoded as any).email,
+              name: (decoded as any).name,
+            }
+          : null,
     });
   } catch (err) {
     return NextResponse.json({ error: String(err) }, { status: 500 });
