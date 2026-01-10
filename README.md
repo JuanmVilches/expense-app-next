@@ -16,7 +16,7 @@ Esta app permite a los usuarios registrarse, iniciar sesión y gestionar sus gas
 - CRUD de gastos asociado a usuarios
 - Gráficos de barras y líneas para análisis de gastos
 - Validación de formularios con **zod** y **react-hook-form**
-- Persistencia con **Prisma** (SQLite) y migraciones incluidas
+- Persistencia con **Prisma** (PostgreSQL) y migraciones incluidas
 - Componentes con diseño responsivo (TailwindCSS)
 
 ---
@@ -26,7 +26,7 @@ Esta app permite a los usuarios registrarse, iniciar sesión y gestionar sus gas
 - Next.js (App Router)
 - TypeScript
 - NextAuth (Credentials provider)
-- Prisma + SQLite
+- Prisma + PostgreSQL
 - TailwindCSS
 - Chart.js + react-chartjs-2
 - react-hook-form, zod, axios, sweetalert2
