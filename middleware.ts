@@ -7,17 +7,39 @@ export async function middleware(request: NextRequest) {
 
   // Debug: print whether secrets exist and raw cookie header (will appear in Vercel logs)
   try {
-    console.log("middleware: NEXTAUTH_SECRET present", !!process.env.NEXTAUTH_SECRET, "AUTH_SECRET present", !!process.env.AUTH_SECRET);
+    console.log(
+      "middleware: NEXTAUTH_SECRET present",
+      !!process.env.NEXTAUTH_SECRET,
+      "AUTH_SECRET present",
+      !!process.env.AUTH_SECRET
+    );
     console.log("middleware: secret length", secret ? secret.length : 0);
     console.log("middleware: raw cookie header", request.headers.get("cookie"));
   } catch (err) {
     console.log("middleware secret/cookie debug error", err);
   }
 
-  const token = await getToken({
-    req: request,
-    secret,
-  });
+  // Try getting raw token first to inspect what getToken receives/returns
+  let token = null;
+  try {
+    const raw = await getToken({ req: request, secret, raw: true } as any);
+    console.log(
+      "middleware: getToken raw:",
+      raw ? (typeof raw === "string" ? raw.slice(0, 200) : raw) : null
+    );
+  } catch (err) {
+    console.log("middleware: getToken(raw) error", err);
+  }
+
+  try {
+    token = await getToken({ req: request, secret });
+    console.log(
+      "middleware: getToken decoded:",
+      token ? { sub: token.sub, email: token.email, name: token.name } : null
+    );
+  } catch (err) {
+    console.log("middleware: getToken(decoded) error", err);
+  }
 
   // Debug: print whether token exists and which auth cookies are present (will appear in Vercel logs)
   try {
