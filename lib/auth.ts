@@ -34,7 +34,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
   },
-  trustHost: true, // ✅ CRITICAL: Required for Vercel deployments
+  trustHost: true, // ✅ CRITICAL: Required for Vercel deployments.
   secret: process.env.AUTH_SECRET, // ✅ Use AUTH_SECRET (NextAuth v5 standard)
   session: {
     strategy: "jwt",
