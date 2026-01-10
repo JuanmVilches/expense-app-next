@@ -1,23 +1,25 @@
-// middleware.ts
-import { auth } from "@/lib/auth"; // O "@/auth" si tienes el alias configurado
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default auth((req) => {
-  const token = req.auth;
-  const isAuthenticated = !!token;
+export async function middleware(request: NextRequest) {
+  // Importación dinámica de auth para evitar errores de edge runtime
+  const { auth } = await import("@/lib/auth");
 
-  console.log("=== MIDDLEWARE DEBUG ===");
-  console.log("Path:", req.nextUrl.pathname);
+  const session = await auth();
+  const isAuthenticated = !!session;
+
+  console.log("=== MIDDLEWARE ===");
+  console.log("Path:", request.nextUrl.pathname);
   console.log("Authenticated:", isAuthenticated);
-  console.log("User:", token?.user || null);
-  console.log("========================");
+  console.log("User:", session?.user?.email || null);
+  console.log("==================");
 
   if (!isAuthenticated) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: ["/form", "/list", "/dashboard"],
