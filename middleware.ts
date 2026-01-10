@@ -31,6 +31,6 @@ export async function middleware(request: NextRequest) {
   }
 }
 
-export const config = {
-  matcher: ["/form", "/list", "/dashboard"],
-};
+// export const config = {
+//   matcher: ["/form", "/list", "/dashboard"],
+// };
