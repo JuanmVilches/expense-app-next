@@ -34,13 +34,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
-  session: { strategy: "jwt", maxAge: 86400 },
+  trustHost: true, // ✅ CRITICAL: Required for Vercel deployments
+  secret: process.env.AUTH_SECRET, // ✅ Use AUTH_SECRET (NextAuth v5 standard)
+  session: {
+    strategy: "jwt",
+    maxAge: 86400,
+  },
   callbacks: {
+    async jwt({ token, user }) {
+      // ✅ ADD: Populate token with user data on signin
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+      }
+      return token;
+    },
     async session({ session, token }) {
       if (token && session.user) {
         session.user = {
-          id: token.sub,
+          id: token.id as string, // ✅ Use token.id instead of token.sub
           email: token.email as string,
           name: token.name as string,
         } as any;
