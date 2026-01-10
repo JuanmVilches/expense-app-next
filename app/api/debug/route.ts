@@ -6,8 +6,8 @@ export async function GET(request: NextRequest) {
   const secret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
   try {
     const cookie = request.headers.get("cookie");
-    let raw = null;
-    let decoded = null;
+    let raw: unknown = null;
+    let decoded: unknown = null;
     try {
       // @ts-ignore - raw option may not be typed here depending on version
       raw = await getToken({ req: request, secret, raw: true } as any);
@@ -20,6 +20,20 @@ export async function GET(request: NextRequest) {
       decoded = `error: ${String(e)}`;
     }
 
+    // Safely create raw preview string
+    let rawPreview: string | null = null;
+    if (raw == null) rawPreview = null;
+    else if (typeof raw === "string") rawPreview = raw.slice(0, 200);
+    else if (typeof raw === "object") {
+      try {
+        rawPreview = JSON.stringify(raw).slice(0, 200);
+      } catch {
+        rawPreview = String(raw).slice(0, 200);
+      }
+    } else {
+      rawPreview = String(raw).slice(0, 200);
+    }
+
     return NextResponse.json({
       secretPresent: {
         NEXTAUTH_SECRET: !!process.env.NEXTAUTH_SECRET,
@@ -27,7 +41,7 @@ export async function GET(request: NextRequest) {
       },
       secretLength: secret ? secret.length : 0,
       cookie,
-      getTokenRaw: typeof raw === "string" ? raw.slice(0, 200) : raw,
+      getTokenRaw: rawPreview,
       getTokenDecoded:
         decoded && typeof decoded === "object"
           ? {

@@ -22,11 +22,22 @@ export async function middleware(request: NextRequest) {
   // Try getting raw token first to inspect what getToken receives/returns
   let token = null;
   try {
+    // @ts-ignore - raw may not be typed in this version of next-auth
     const raw = await getToken({ req: request, secret, raw: true } as any);
-    console.log(
-      "middleware: getToken raw:",
-      raw ? (typeof raw === "string" ? raw.slice(0, 200) : raw) : null
-    );
+    // Safely produce a short preview string for logs without assuming types
+    let rawPreview: string | null = null;
+    if (raw == null) rawPreview = null;
+    else if (typeof raw === "string") rawPreview = raw.slice(0, 200);
+    else if (typeof raw === "object") {
+      try {
+        rawPreview = JSON.stringify(raw).slice(0, 200);
+      } catch {
+        rawPreview = String(raw).slice(0, 200);
+      }
+    } else {
+      rawPreview = String(raw).slice(0, 200);
+    }
+    console.log("middleware: getToken raw:", rawPreview);
   } catch (err) {
     console.log("middleware: getToken(raw) error", err);
   }
