@@ -23,7 +23,11 @@ export async function middleware(request: NextRequest) {
   let token = null;
   try {
     // @ts-ignore - raw may not be typed in this version of next-auth
-    const raw = await getToken({ req: request, secret, raw: true } as any);
+    const raw: unknown = await getToken({
+      req: request,
+      secret,
+      raw: true,
+    } as any);
     // Safely produce a short preview string for logs without assuming types
     let rawPreview: string | null = null;
     if (raw == null) rawPreview = null;
