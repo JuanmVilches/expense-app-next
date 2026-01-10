@@ -1,24 +1,34 @@
+// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
-  // Importación dinámica de auth para evitar errores de edge runtime
-  const { auth } = await import("@/lib/auth");
+  try {
+    const token = await getToken({
+      req: request,
+      secret: process.env.AUTH_SECRET,
+    });
 
-  const session = await auth();
-  const isAuthenticated = !!session;
+    const isAuthenticated = !!token;
 
-  console.log("=== MIDDLEWARE ===");
-  console.log("Path:", request.nextUrl.pathname);
-  console.log("Authenticated:", isAuthenticated);
-  console.log("User:", session?.user?.email || null);
-  console.log("==================");
+    console.log("=== MIDDLEWARE ===");
+    console.log("Path:", request.nextUrl.pathname);
+    console.log("Authenticated:", isAuthenticated);
+    console.log("User:", token?.email || null);
+    console.log("==================");
 
-  if (!isAuthenticated) {
+    if (!isAuthenticated) {
+      console.log("Redirecting to login...");
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    return NextResponse.next();
+  } catch (error) {
+    console.error("Middleware error:", error);
+    // En caso de error, redirigir a login por seguridad
     return NextResponse.redirect(new URL("/login", request.url));
   }
-
-  return NextResponse.next();
 }
 
 export const config = {
